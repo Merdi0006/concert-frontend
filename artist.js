@@ -1,4 +1,4 @@
-const API_URL='http://localhost:5000/api';
+const API_URL='https://concert-backend-0g72.onrender.com';
 let artistId=null;
 let ticketTarget=0;
 let ticketsSold=0;
@@ -57,3 +57,4 @@ function generateQR(ticketId){
     container.appendChild(canvas);
   });
 }
+
