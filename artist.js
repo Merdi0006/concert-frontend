@@ -6,10 +6,10 @@ let ticketsSold=0;
 document.getElementById('loginBtn').addEventListener('click',()=>{
   const email=document.getElementById('artistEmail').value.trim();
   const pass=document.getElementById('artistPass').value.trim();
-  fetch(`${API_URL}/artist/login`,{
+  fetch(`${API_URL}/api/artist/login`,{   // <- /api eklendi
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email,password:pass})
+    body:JSON.stringify({email, password: pass}) // <- password değişkeni düzeltildi
   }).then(r=>r.json()).then(d=>{
     if(d.success){
       artistId=d.artistId;
@@ -23,11 +23,10 @@ document.getElementById('loginBtn').addEventListener('click',()=>{
   });
 });
 
-// Bilet oluştur
 document.getElementById('createTicketBtn').addEventListener('click',()=>{
   const customerName=document.getElementById('customerName').value.trim();
   if(!customerName) return alert('Müşteri adı girin!');
-  fetch(`${API_URL}/artist/create-ticket`,{
+  fetch(`${API_URL}/api/artist/create-ticket`,{  // <- /api eklendi
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({artistId, customerName})
@@ -48,7 +47,6 @@ function updateProgress(){
   document.getElementById('progressText').innerText=`${ticketsSold} / ${ticketTarget} bilet satıldı`;
 }
 
-// QR oluştur
 function generateQR(ticketId){
   const container=document.getElementById('ticketQR');
   container.innerHTML='';
@@ -57,4 +55,3 @@ function generateQR(ticketId){
     container.appendChild(canvas);
   });
 }
-
