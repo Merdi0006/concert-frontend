@@ -1,4 +1,4 @@
-const API_URL = 'https://concert-backend-0g72.onrender.com';
+const API_URL = 'https://concert-backend-1.onrender.com';
 let qrScanner = null;
 
 // Admin login
@@ -74,3 +74,4 @@ function deleteArtist(id){
 }
 
 // QR okutma ve ticket hafızası kısmı aynı, sadece fetch URL’lerine /api ekle
+
