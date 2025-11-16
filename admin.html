@@ -10,6 +10,7 @@
 <body class="bg-light">
 <div class="container py-4">
 
+<!-- Admin Girişi -->
 <div id="adminLoginCard" class="card p-3 my-3">
 <h3>Admin Girişi</h3>
 <input type="text" class="form-control mb-2" id="adminUser" placeholder="Kullanıcı Adı">
@@ -17,16 +18,19 @@
 <button id="loginBtn" class="btn btn-danger">Giriş Yap</button>
 </div>
 
+<!-- Admin Paneli -->
 <div id="adminPanel" style="display:none;">
 <h2>Admin Paneli</h2>
 
+<!-- QR Kod Okuma -->
 <div class="card p-3 my-3">
 <h4>QR Kod Okuma</h4>
 <button id="startQrBtn" class="btn btn-primary mb-2">QR Okut</button>
-<div id="qr-reader" style="width:300px"></div>
+<div id="qr-reader" style="width:100%; max-width:400px; margin:auto;"></div>
 <div id="qr-result" class="mt-2"></div>
 </div>
 
+<!-- Yeni Sanatçı Ekle -->
 <div class="card p-3 my-3">
 <h4>Yeni Sanatçı Ekle</h4>
 <input type="text" class="form-control mb-2" id="artistName" placeholder="İsim">
@@ -37,21 +41,50 @@
 <button id="addArtistBtn" class="btn btn-primary">Sanatçı Ekle</button>
 </div>
 
+<!-- Sanatçılar -->
 <div class="card p-3 my-3">
 <h4>Sanatçılar</h4>
 <div id="artistList"></div>
 </div>
 
+<!-- Okunan Biletler -->
 <div class="card p-3 my-3">
 <h4>Okunan Biletler</h4>
 <button id="clearHistory" class="btn btn-danger mb-2">Geçmişi Temizle</button>
 <table class="table table-sm table-striped">
-<thead><tr><th>ID</th><th>Sanatçı</th><th>Müşteri</th><th>Tarih</th><th>İşlem</th></tr></thead>
+<thead><tr><th>ID</th><th>Sanatçı</th><th>Müşteri</th><th>Tarih</th></tr></thead>
 <tbody id="ticketHistory"></tbody>
 </table>
 </div>
+
 </div>
-</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  let qrScanner = null;
+
+  const startBtn = document.getElementById("startQrBtn");
+  startBtn.addEventListener("click", () => {
+    if(qrScanner){ qrScanner.stop().catch(()=>{}); qrScanner.clear(); }
+
+    qrScanner = new Html5Qrcode("qr-reader");
+
+    qrScanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      decoded => {
+        document.getElementById("qr-result").innerText = `Bilet ID: ${decoded}`;
+        // Burada verifyTicket(decoded) çağırabilirsin
+        alert(`Bilet ID: ${decoded}`);
+        qrScanner.stop(); // Okuduktan sonra durdur
+      },
+      err => {
+        console.warn(err);
+      }
+    ).catch(err => console.error("QR başlatılamadı:", err));
+  });
+});
+</script>
+
 </body>
 </html>
-	
