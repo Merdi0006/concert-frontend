@@ -1,4 +1,4 @@
-const API_URL='http://localhost:5000/api';
+const API_URL='https://concert-backend-0g72.onrender.com';
 let qrScanner=null;
 
 // Admin login
@@ -127,3 +127,4 @@ document.getElementById('clearHistory').addEventListener('click',()=>{
     }
   });
 });
+
